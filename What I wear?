@@ -1,0 +1,22 @@
+t = int(input('Temp? (number) '))
+r = input('Rain? Y/N ')
+
+if r == 'y' or r == 'Y':
+    r_s = input('Rain is strong? Y/N ')
+
+if 20 < t < 30:
+    if r == 'y' or r == 'Y':
+        print('T-shirt, shorts, raincoat')
+    else:
+        print('T-shirt, shorts')
+    exit()
+if t > 0:
+    if r == 'y' or r == 'Y':
+        if r_s == 'y' or r == 'Y':
+            print('Coat, rubberboots, umbrella')
+        else:
+            print('Coat, raincoat')
+    else:
+        print('Coat')
+else:
+    print('Warmcoat')
