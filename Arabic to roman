@@ -1,0 +1,13 @@
+while True:
+    i, v, x, l, c, d, m = "I", "V", "X", "L", "C", "D", "M"
+    n = int(input("Number?"))
+    if 1 <= n <= 3:
+        print(i*n)
+    elif n == 4:
+        print(i + v)
+    elif 5 <= n <= 8:
+        print(v+i*(n-5))
+    elif n == 9:
+        print(i + x)
+    elif 10 <= n <= 13:
+        print(x + i*())
