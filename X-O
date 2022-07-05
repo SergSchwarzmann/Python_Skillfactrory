@@ -1,0 +1,56 @@
+
+array = (["-", "-", "-"],
+             ["-", "-", "-"],
+             ["-", "-", "-"])
+
+turn_array = []
+
+def draw_array():
+    print(" ".join([" ", "0", "1", "2"]))
+    for i in range(3):
+        row = array[i]
+        print(i, " ".join(row))
+
+
+def test_row(arr):
+    for i in arr:
+        if len(set(i)) == 1:
+            if i[1] == "x":
+                print("X winner!")
+                exit()
+            elif i[1] == "o":
+                print("O winner!")
+                exit()
+            else:
+                pass
+
+
+def array_turn():
+    for i in range(3):
+        turn_row = []
+        for raw in array:
+            turn_row.append(raw[i])
+        turn_array.append(turn_row)
+
+a = "x"
+draw_array()
+
+while True:
+
+    y, x = str.split(input(f"Player {a} Your position? (Vert_Goriz) "))
+    y, x = int(y), int(x)
+
+    d =  array[y]
+    d[x] = a
+    if a == "x":
+        a = "o"
+    else:
+        a = "x"
+
+    draw_array()
+
+    test_row(array)
+    array_turn()
+    test_row(turn_array)
+
+
