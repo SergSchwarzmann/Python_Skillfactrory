@@ -18,10 +18,10 @@ def arr_to_row(arr):
 
 def test_row(row):
     if len(set(row)) == 1:
-        if row[1] == "x":
+        if row[1] == "X":
             print("X winner!")
             exit()
-        elif row[1] == "o":
+        elif row[1] == "O":
             print("O winner!")
             exit()
         else:
@@ -36,20 +36,20 @@ def array_turn():
         turn_array.append(turn_row)
 
 
-a = "x"
+a = "X"
 draw_array()
 
 while True:
 
-    y, x = str.split(input(f"Player {a} Your position? (Vert_Goriz) "))
+    y, x = str.split(input(f"Player {a} Your position? (Row _ Column) "))
     y, x = int(y), int(x)
 
     d = array[y]
     d[x] = a
-    if a == "x":
-        a = "o"
+    if a == "X":
+        a = "O"
     else:
-        a = "x"
+        a = "X"
 
     x_row_1 = []
     x_row_2 = []
@@ -66,5 +66,4 @@ while True:
     arr_to_row(turn_array)
     test_row(x_row_1)
     test_row(x_row_2)
-
-
+    
