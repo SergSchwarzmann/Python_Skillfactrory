@@ -36,16 +36,37 @@ def array_turn():
         turn_array.append(turn_row)
 
 
+def choose(*arg):
+    try:
+        y, x = str.split(input(f"Player {a} Your position? (Row _ Column) "))
+        y, x = int(y), int(x)
+    except ValueError:
+        print("It's not number!")
+        return choose()
+    if 0 <= x <= 2 and 0 <= y <= 2:
+        test_cell(x, y)
+        return x, y
+    else:
+        print("Enter right numbers!")
+        return choose()
+
+
+def test_cell(x, y):
+    d = array[y]
+    if d[x] == "-":
+        d[x] = a
+    else:
+        print("Forbidden move!")
+        choose()
+
+
 a = "X"
 draw_array()
 
 while True:
-
-    y, x = str.split(input(f"Player {a} Your position? (Row _ Column) "))
-    y, x = int(y), int(x)
-
-    d = array[y]
-    d[x] = a
+    y, x = choose()
+    # d = array[y]
+    # d[x] = a
     if a == "X":
         a = "O"
     else:
@@ -66,4 +87,3 @@ while True:
     arr_to_row(turn_array)
     test_row(x_row_1)
     test_row(x_row_2)
-    
