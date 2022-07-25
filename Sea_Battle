@@ -1,4 +1,10 @@
+# Похоже я слишком тупой или тема слишком сложная, но я так и не придумал
+# что я могу тут дополнить/переделать :(
+# вроде и тема понятна, а не получается. С крестиками-ноликами было сильно проще.
+# Если получится позже что-то придумать, факультативно обращусь к вам для проверки, если можно. 
+
 from random import randint
+import time
 
 class BoardException(Exception):
     pass
@@ -115,7 +121,8 @@ class Board:
                     self.destroyed += 1
                     self.contour_ship(ship, verb=True)
                     print("Ship destroyed!")
-                    return True
+                    return True # Если поставить False, то после уничтожения корабля ход будет
+                                # передаваться, а так не должно быть.
                 else:
                     print("Ship hits!")
                     return True
@@ -175,6 +182,7 @@ class PL(Player):
 
 class Game:
     def __init__(self, size = 6):
+        self.ship_len = [3, 2, 2, 1, 1, 1, 1]
         self.size = size
         player = self.rand_board_gen()
         comp = self.rand_board_gen()
@@ -185,10 +193,9 @@ class Game:
 
 
     def make_board(self):
-        ship_len = [3, 2, 2, 1, 1, 1, 1]
         board = Board(size=self.size)
         attempts = 0
-        for i in ship_len:
+        for i in self.ship_len:
             while True:
                 attempts += 1
                 if attempts > 1000:
@@ -218,33 +225,42 @@ class Game:
         print("   x - row number  ")
         print(" y - column number ")
 
+    def draw_board(self):
+        print("-" * 20)
+        print("Player board:")
+        print(self.pl.board)
+        print("-" * 20)
+        print("AI board:")
+        print(self.ai.board)
+
+
     def game_loop(self):
         move_qu = 0
+        total_moves = 0
         while True:
-            print("-" * 20)
-            print("Player board:")
-            print(self.pl.board)
-            print("-" * 20)
-            print("Доска компьютера:")
-            print(self.ai.board)
+            self.draw_board()
             if move_qu % 2 == 0:
                 print("Player's move!")
                 repeat = self.pl.move()
             else:
                 print("AI's move!")
+                time.sleep(2)
                 repeat = self.ai.move()
             if repeat:
                 move_qu -= 1
 
             if self.ai.board.defeat():
+                self.draw_board()
                 print("-" * 20)
-                print("Player wins!")
+                print(f"Player wins in {total_moves} moves!")
                 break
             elif self.pl.board.defeat():
+                self.draw_board()
                 print("-" * 20)
-                print("AI wins!")
+                print(f"AI wins in {total_moves} moves!")
                 break
             move_qu += 1
+            total_moves += 1
 
     def start(self):
         self.greet()
